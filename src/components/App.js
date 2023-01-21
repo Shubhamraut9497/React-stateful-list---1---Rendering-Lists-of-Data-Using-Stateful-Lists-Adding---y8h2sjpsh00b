@@ -1,5 +1,7 @@
-import React from 'react'
-
+import React, { useState } from 'react';
+import YearList from './YearList';
+import SelectedYear from './SelectedYear';
+import MovieList from './MovieList';
 import '../styles/App.css';
 
 const data = {
@@ -27,11 +29,27 @@ const data = {
   ]
 }
 const App = () => {
-
+const [selectedYear,changeSelectedYear]=useState(null);
+const change=(e)=>{
+  changeSelectedYear(e.target.value);
+}
   return (
+    <>
     <div id="main">
+      <YearList 
+      years={Object.keys(data)}
+      selectedYear={selectedYear}
+      changeSelectedYear={change}
+      />
       
     </div>
+    <SelectedYear
+    selectedYear={selectedYear}
+    />
+    <MovieList 
+    movies={data[selectedYear] || []}
+    />
+    </>
   )
 }
 
